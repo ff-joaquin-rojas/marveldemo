@@ -4,8 +4,10 @@ import { Insets } from "react-native/types";
 export const PALETTE = {
     dark00: '#000000',
     dark10: '#202020',
+    dark20: '#151515',
     red: '#ec1d24',
     white: '#ffffff',
+    subtle: '#BBBBBB',
 }
 
 export const DEFAULT_SPACING = 8;
@@ -24,7 +26,12 @@ export interface MarvelTheme extends Theme {
     text: {
         primary: string;
         secondary: string;
+        subtle: string;
     },
+    background: {
+        primary: string;
+        card: string;
+    }
     [classification: string]: ColorClassification | boolean | Insets | number
 }
 
@@ -44,10 +51,12 @@ export const lightTheme: MarvelTheme = {
     dark: false,
     background: {
         primary: PALETTE.red,
+        card: PALETTE.dark20,
     },
     text: {
         primary: PALETTE.white,
         secondary: PALETTE.dark00,
+        subtle: PALETTE.subtle
     }
 };
 
@@ -67,9 +76,11 @@ export const darkTheme: MarvelTheme = {
     dark: true,
     background: {
         primary: PALETTE.red,
+        card: PALETTE.dark20,
     },
     text: {
         primary: PALETTE.white,
         secondary: PALETTE.dark00,
+        subtle: PALETTE.subtle
     }
 };

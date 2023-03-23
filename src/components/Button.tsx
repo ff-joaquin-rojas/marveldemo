@@ -15,7 +15,7 @@ const Button = ({ text, onPress }: ButtonProps) => {
   const styles = useMemo(() => createStyles(theme), [theme])
 
   return (
-    <TouchableOpacity onPress={onPress} activeOpacity={theme.defaultOpacity} hitSlop={theme.hitSlopInsets}>
+    <TouchableOpacity onPress={onPress} style={styles.buttonContainer} activeOpacity={theme.defaultOpacity} hitSlop={theme.hitSlopInsets}>
       <View style={styles.buttonTop} />
       <View style={styles.buttonContent}>
         <Text style={styles.buttonText}>{text}</Text>
@@ -27,6 +27,9 @@ const Button = ({ text, onPress }: ButtonProps) => {
 
 const createStyles = (theme: MarvelTheme) => {
   return StyleSheet.create({
+    buttonContainer: {
+      alignSelf: 'flex-start',
+    },
     buttonText: {
       color: theme.text.primary,
       minWidth: 70,
@@ -50,7 +53,8 @@ const createStyles = (theme: MarvelTheme) => {
     },
     buttonContent: {
       backgroundColor: theme.colors.primary,
-      paddingHorizontal: theme.spacing
+      paddingHorizontal: theme.spacing,
+      alignItems: 'center',
     }
   });
 }
