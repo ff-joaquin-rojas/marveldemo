@@ -29,6 +29,14 @@ const BrowseScreen = () => {
     {
       photoUri: 'https://cdn.marvel.com/content/1x/301kng_ons_crd_01.jpg',
       name: 'Kang the conqueror',
+    },
+    {
+      photoUri: 'https://cdn.marvel.com/content/1x/157hap_ons_crd_02.jpg',
+      name: 'Hank Pym',
+    },
+    {
+      photoUri: 'https://cdn.marvel.com/content/1x/041wjd_ons_crd_02.jpg',
+      name: 'Janet Van Dyne',
     }
   ]
 
@@ -41,7 +49,6 @@ const BrowseScreen = () => {
       <FlatList
         numColumns={2}
         columnWrapperStyle={styles.flatlistRow}
-        contentContainerStyle={{ backgroundColor: 'yellow', flexGrow: 1 }}
         data={mockedCharacters}
         renderItem={({ item }) => <CharacterItem character={item} />}
       />
