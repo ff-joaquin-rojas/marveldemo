@@ -1,31 +1,58 @@
-import { View, Text, TouchableOpacity, StyleSheet, TouchableHighlight, Pressable } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import React, { useMemo } from 'react'
-import { SPACING } from '../style/Palette'
-import { Theme, useTheme } from '@react-navigation/native'
-import { Path, Svg } from 'react-native-svg'
+import { MarvelTheme } from '../style/Palette'
+import { useTheme } from '@react-navigation/native'
 
-const Button = () => {
-    const theme = useTheme();
-    const styles = useMemo(() => createStyles(theme), [theme])
+const TRIANGLE_SIZE = 15
+
+interface ButtonProps {
+  text: string
+  onPress?: () => void
+}
+
+const Button = ({ text, onPress }: ButtonProps) => {
+  const theme = useTheme() as MarvelTheme;
+  const styles = useMemo(() => createStyles(theme), [theme])
 
   return (
-    <Pressable style={styles.buttonContainer}>
-        <Svg  style={{ position: 'absolute', backgroundColor: 'yellow', height: '100%', width: 100}} viewBox='0 0 50 25'>
-        <Path fill='blue' stroke='#000' d="M 0 25 L 42.5 25 L 50 17.5 L 50 0 L 7.5 0 L 0 7.5 L 0 25 Z" />
-        </Svg>
-      <Text>Update account</Text>
-    </Pressable>
+    <TouchableOpacity onPress={onPress} activeOpacity={theme.defaultOpacity} hitSlop={theme.hitSlopInsets}>
+      <View style={styles.buttonTop} />
+      <View style={styles.buttonContent}>
+        <Text style={styles.buttonText}>{text}</Text>
+      </View>
+      <View style={styles.buttonBottom} />
+    </TouchableOpacity>
   )
 }
 
-const createStyles = (theme: Theme) => {
-    return StyleSheet.create({
-        buttonContainer: {
-            backgroundColor: 'red',
-            // paddingHorizontal: SPACING * 3,
-            // paddingVertical: SPACING * 1.5,
-        }
-    });
+const createStyles = (theme: MarvelTheme) => {
+  return StyleSheet.create({
+    buttonText: {
+      color: theme.text.primary,
+      minWidth: 70,
+    },
+    buttonTop: {
+      backgroundColor: "transparent",
+      borderStyle: "solid",
+      borderLeftWidth: TRIANGLE_SIZE,
+      borderBottomWidth: TRIANGLE_SIZE,
+      borderLeftColor: "transparent",
+      borderRightColor: theme.colors.primary,
+      borderBottomColor: theme.colors.primary,
+    },
+    buttonBottom: {
+      backgroundColor: "transparent",
+      borderStyle: "solid",
+      borderRightWidth: TRIANGLE_SIZE,
+      borderTopWidth: TRIANGLE_SIZE,
+      borderTopColor: theme.colors.primary,
+      borderRightColor: "transparent",
+    },
+    buttonContent: {
+      backgroundColor: theme.colors.primary,
+      paddingHorizontal: theme.spacing
+    }
+  });
 }
 
 export default Button

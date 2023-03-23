@@ -1,3 +1,5 @@
+import { Theme } from "@react-navigation/native";
+import { Insets } from "react-native/types";
 
 export const PALETTE = {
     dark00: '#000000',
@@ -6,24 +8,68 @@ export const PALETTE = {
     white: '#ffffff',
 }
 
-export const SPACING = 8;
+export const DEFAULT_SPACING = 8;
+export const DEFAULT_HITSLOP = 10;
+export const DEFAULT_ACTIVE_OPACITY_BUTTON = 0.6
 
-export const lightTheme = {
+interface ColorClassification {
+    [name: string]: string;
+}
+
+export interface MarvelTheme extends Theme {
+    defaultOpacity: number,
+    hitSlop: number,
+    hitSlopInsets: Insets,
+    spacing: number,
+    text: {
+        primary: string;
+        secondary: string;
+    },
+    [classification: string]: ColorClassification | boolean | Insets | number
+}
+
+export const lightTheme: MarvelTheme = {
+    defaultOpacity: DEFAULT_ACTIVE_OPACITY_BUTTON,
+    hitSlop: DEFAULT_HITSLOP,
+    hitSlopInsets: { bottom: DEFAULT_HITSLOP, left: DEFAULT_HITSLOP, right: DEFAULT_HITSLOP, top: DEFAULT_HITSLOP },
+    spacing: DEFAULT_SPACING,
+    colors: {
+        background: PALETTE.white,
+        border: PALETTE.dark10,
+        card: PALETTE.white,
+        notification: PALETTE.red,
+        primary: PALETTE.red,
+        text: PALETTE.white,
+    },
+    dark: false,
     background: {
         primary: PALETTE.red,
     },
     text: {
         primary: PALETTE.white,
-        textColor: PALETTE.dark00,
+        secondary: PALETTE.dark00,
     }
 };
 
-export const darkTheme = {
+export const darkTheme: MarvelTheme = {
+    defaultOpacity: DEFAULT_ACTIVE_OPACITY_BUTTON,
+    hitSlop: DEFAULT_HITSLOP,
+    hitSlopInsets: { bottom: DEFAULT_HITSLOP, left: DEFAULT_HITSLOP, right: DEFAULT_HITSLOP, top: DEFAULT_HITSLOP },
+    spacing: DEFAULT_SPACING,
+    colors: {
+        background: PALETTE.dark10,
+        border: PALETTE.dark10,
+        card: PALETTE.white,
+        notification: PALETTE.red,
+        primary: PALETTE.white,
+        text: PALETTE.white,
+    },
+    dark: true,
     background: {
         primary: PALETTE.red,
     },
     text: {
         primary: PALETTE.white,
-        textColor: PALETTE.dark00,
+        secondary: PALETTE.dark00,
     }
 };
