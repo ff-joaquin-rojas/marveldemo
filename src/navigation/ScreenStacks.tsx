@@ -1,15 +1,27 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import BrowseScreen from '../screens/BrowseScreen';
+import CharacterScreen from '../screens/CharacterScreen';
 
-const Stack = createNativeStackNavigator();
+export type StackParamList = {
+    Browse: {},
+    CharacterDetails: {
+        id: number
+    }
+}
 
-const RootStack = () => { 
+const Stack = createNativeStackNavigator<StackParamList>();
+
+const RootStack = () => {
     return (
-        <Stack.Navigator >
+        <Stack.Navigator initialRouteName='Browse' >
             <Stack.Screen
-             name='Browse'
-             options={{ headerShown: false }}
-             component={BrowseScreen}
+                name='Browse'
+                options={{ headerShown: false }}
+                component={BrowseScreen}
+            />
+            <Stack.Screen
+                name='CharacterDetails'
+                component={CharacterScreen}
             />
         </Stack.Navigator>
     );

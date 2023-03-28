@@ -1,9 +1,10 @@
-import { View, Text, StyleSheet, LayoutChangeEvent } from 'react-native'
+import { View, Text, StyleSheet, LayoutChangeEvent, TouchableOpacity } from 'react-native'
 import React, { useMemo, useState } from 'react'
-import { useTheme } from '@react-navigation/native'
+import { NavigationProp, useNavigation, useTheme } from '@react-navigation/native'
 import { MarvelTheme } from '../style/Palette'
 import FastImage, { Source } from 'react-native-fast-image'
 import { Character } from '../models/Character'
+import { StackParamList } from '../navigation/ScreenStacks'
 
 const TRIANGLE_SIZE = 15;
 const IMAGE_HEIGHT = 200;
@@ -15,29 +16,36 @@ interface CharacterItemProps {
 const CharacterItem = ({ character = {} }: CharacterItemProps) => {
     const theme = useTheme() as MarvelTheme;
     const styles = useMemo(() => createStyles(theme), [theme])
+    const navigation = useNavigation<NavigationProp<StackParamList>>()
     const [maxWidth, setmaxWidth] = useState(0)
-    const { realName, name, photoUri } = character
+    const { id, name, thumbnail, comics } = character
 
     const imageSource: Source = {
-        uri: photoUri,
+        uri: `${thumbnail?.path.replace('http', 'https')}.${thumbnail?.extension}`,
         priority: 'high',
     }
 
     const measureMaxWidth = (event: LayoutChangeEvent) =>
         setmaxWidth(event.nativeEvent.layout.width)
 
+    const navigateToCharacterDetails = () =>
+        id ?
+            navigation.navigate('CharacterDetails', { id })
+            : console.log('Error: Id not provided');
+
+
     return (
-        <View>
+        <TouchableOpacity onPress={navigateToCharacterDetails}>
             <FastImage
                 onLayout={measureMaxWidth}
                 style={styles.image}
                 source={imageSource} />
             <View style={[styles.informationContainer, { maxWidth }]}>
                 <Text style={styles.mainInformationText}>{name}</Text>
-                <Text style={styles.secondaryInformationText}>{realName}</Text>
+                <Text style={styles.secondaryInformationText}>{comics?.available} Comics available</Text>
             </View>
             <View style={styles.triangleDetail} />
-        </View>
+        </TouchableOpacity>
     )
 }
 
