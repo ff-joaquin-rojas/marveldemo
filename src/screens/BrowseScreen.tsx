@@ -1,6 +1,5 @@
-import { View, FlatList, StyleSheet, ListRenderItemInfo, Text } from 'react-native'
+import { FlatList, StyleSheet, ListRenderItemInfo } from 'react-native'
 import React, { useMemo } from 'react'
-import Button from '../components/Button'
 import CharacterItem from '../components/CharacterItem'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { MarvelTheme } from '../style/Palette'

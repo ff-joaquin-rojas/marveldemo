@@ -11,20 +11,19 @@ export type StackParamList = {
 
 const Stack = createNativeStackNavigator<StackParamList>();
 
-const RootStack = () => {
-    return (
-        <Stack.Navigator initialRouteName='Browse' >
-            <Stack.Screen
-                name='Browse'
-                options={{ headerShown: false }}
-                component={BrowseScreen}
-            />
-            <Stack.Screen
-                name='CharacterDetails'
-                component={CharacterScreen}
-            />
-        </Stack.Navigator>
-    );
-}
+const RootStack = () => (
+    <Stack.Navigator initialRouteName='Browse' >
+        <Stack.Screen
+            name='Browse'
+            options={{ headerShown: false }}
+            component={BrowseScreen}
+        />
+        <Stack.Screen
+            name='CharacterDetails'
+            component={CharacterScreen}
+            options={{ headerTitle: 'Character Details' }}
+        />
+    </Stack.Navigator>
+);
 
 export default RootStack;

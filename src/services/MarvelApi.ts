@@ -1,7 +1,8 @@
 import { stringMd5 } from "react-native-quick-md5"
-import { MarvelAPIError, MarvelAPIResponse } from "./models/responses"
+import { MarvelAPIResponse } from "./models/responses"
 import { REACT_APP_API_URL, REACT_APP_PUBLIC_API_KEY, REACT_APP_PRIVATE_API_KEY } from "@env"
 import { Character } from "../models/Character"
+import { Params } from "../hooks/useQuery"
 
 const marvelApiUrl = REACT_APP_API_URL
 const publicApiKey = REACT_APP_PUBLIC_API_KEY
@@ -14,7 +15,7 @@ export interface PaginationParams {
     }
 }
 
-export interface GetCharacterParams extends PaginationParams {
+export interface GetCharacterParams extends Params {
     id: number
 }
 
@@ -39,23 +40,25 @@ const getParameters = (paramsObject?: PaginationParams) => {
 export const getCharacters = async (params?: PaginationParams) => {
     const parameters = getParameters(params)
     const authParams = getHashForAuthentication()
-    const url = `${marvelApiUrl}/v1/public/characters${authParams}${parameters}`
+    const url = `${marvelApiUrl}/v1/public/characters${authParams}`
     const response = await fetch(url)
-    const json = await response.json() as MarvelAPIError
+    const json = await response.json()
     if (json.code === 'RequestThrottled') {
         throw new Error(json.message)
     }
-    return await response.json() as MarvelAPIResponse<Character>
+    return await json as MarvelAPIResponse<Character>
 }
 
 export const getCharacterDetails = async ({ id, ...paginationParams }: GetCharacterParams) => {
     const parameters = getParameters({ ...paginationParams })
     const authParams = getHashForAuthentication()
-    const url = `${marvelApiUrl}/v1/public/characters/${id}${authParams}${parameters}`
+    const url = `${marvelApiUrl}/v1/public/characters/${id}${authParams}`
+
     const response = await fetch(url)
-    const json = await response.json() as MarvelAPIError
+    const json = await response.json()
+
     if (json.code === 'RequestThrottled') {
         throw new Error(json.message)
     }
-    return await response.json() as MarvelAPIResponse<Character>
+    return await json as MarvelAPIResponse<Character>
 } 

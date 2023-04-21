@@ -46,7 +46,7 @@ export const lightTheme: MarvelTheme = {
         card: PALETTE.white,
         notification: PALETTE.red,
         primary: PALETTE.red,
-        text: PALETTE.white,
+        text: PALETTE.dark20,
     },
     dark: false,
     background: {

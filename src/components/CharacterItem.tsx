@@ -2,9 +2,10 @@ import { View, Text, StyleSheet, LayoutChangeEvent, TouchableOpacity } from 'rea
 import React, { useMemo, useState } from 'react'
 import { NavigationProp, useNavigation, useTheme } from '@react-navigation/native'
 import { MarvelTheme } from '../style/Palette'
-import FastImage, { Source } from 'react-native-fast-image'
+import FastImage from 'react-native-fast-image'
 import { Character } from '../models/Character'
 import { StackParamList } from '../navigation/ScreenStacks'
+import { getImageSource } from '../utils/image'
 
 const TRIANGLE_SIZE = 15;
 const IMAGE_HEIGHT = 200;
@@ -20,11 +21,7 @@ const CharacterItem = ({ character = {} }: CharacterItemProps) => {
     const [maxWidth, setmaxWidth] = useState(0)
     const { id, name, thumbnail, comics } = character
 
-    const imageSource: Source = {
-        uri: `${thumbnail?.path.replace('http', 'https')}.${thumbnail?.extension}`,
-        priority: 'high',
-    }
-
+    const imageSource = getImageSource(thumbnail)
     const measureMaxWidth = (event: LayoutChangeEvent) =>
         setmaxWidth(event.nativeEvent.layout.width)
 

@@ -1,17 +1,24 @@
 import { useEffect, useState } from 'react'
 import { PaginationParams } from '../services/MarvelApi';
-import { MarvelAPIResponse } from '../services/models/responses';
 
 export interface QueryOptions {
     skip?: boolean
 }
 
+export interface Params extends PaginationParams {
+    [key: string]: any;
+}
+
 export const DEFAULT_LIMIT = 20;
 export const INITIAL_OFFSET = 0;
 
-const useQuery = <T,>(query: (params?: PaginationParams) => Promise<MarvelAPIResponse<T>>, params?: PaginationParams, options?: QueryOptions) => {
+type Parameter<T> = T extends (arg: infer T) => any ? T : never;
+
+const useQuery = <F extends (params: any) => any>(query: F, params?: Parameter<F>) => {
+    const key = params?.key ?? `${query.name}${params ? `:${Object.keys(params).join(':')}` : ''}`
+
     const [loading, setLoading] = useState(true)
-    const [data, setData] = useState<MarvelAPIResponse<T> | undefined>()
+    const [data, setData] = useState<Awaited<ReturnType<F>> | undefined>()
     const [error, setError] = useState<any>(undefined)
     const [limit, setLimit] = useState(DEFAULT_LIMIT)
     const [offset, setOffset] = useState(INITIAL_OFFSET)
@@ -19,7 +26,7 @@ const useQuery = <T,>(query: (params?: PaginationParams) => Promise<MarvelAPIRes
     const runApiCall = async () => {
         setLoading(true)
         try {
-            const response = await query();
+            const response: Awaited<ReturnType<F>> = await query(params);
             setData(response)
         } catch (error) {
             setError(error)
@@ -32,7 +39,7 @@ const useQuery = <T,>(query: (params?: PaginationParams) => Promise<MarvelAPIRes
         setLoading(true)
         try {
             const newOffset = offset + limit
-            const response = await query({ params: { limit, offset: newOffset } });
+            const response: Awaited<ReturnType<F>> = await query({ params: { limit, offset: newOffset } });
             const oldResults = data?.data.results || []
             setData({ ...response, data: { ...response.data, results: [...oldResults, ...response.data.results] } })
             setLimit(limit)
@@ -58,12 +65,8 @@ const useQuery = <T,>(query: (params?: PaginationParams) => Promise<MarvelAPIRes
     }
 
     useEffect(() => {
-        if (!options?.skip) {
-            runApiCall()
-        } else {
-            setLoading(false)
-        }
-    }, [options?.skip, params])
+        runApiCall()
+    }, [key])
 
     return { loading, data, error, fetchMore, refetch }
 }
