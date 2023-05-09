@@ -26,7 +26,9 @@ const useQuery = <F extends (params: any) => any>(query: F, params?: Parameter<F
     const runApiCall = async () => {
         setLoading(true)
         try {
+            console.log('basic params', params);
             const response: Awaited<ReturnType<F>> = await query(params);
+            console.log('response', response);
             setData(response)
         } catch (error) {
             setError(error)
@@ -36,18 +38,20 @@ const useQuery = <F extends (params: any) => any>(query: F, params?: Parameter<F
     }
 
     const fetchMore = async () => {
-        setLoading(true)
-        try {
-            const newOffset = offset + limit
-            const response: Awaited<ReturnType<F>> = await query({ params: { limit, offset: newOffset } });
-            const oldResults = data?.data.results || []
-            setData({ ...response, data: { ...response.data, results: [...oldResults, ...response.data.results] } })
-            setLimit(limit)
-            setOffset(newOffset)
-        } catch (error) {
-            setError(error)
-        } finally {
-            setLoading(false)
+        if (data) {
+            setLoading(true)
+            try {
+                const newOffset = offset + limit
+                const response: Awaited<ReturnType<F>> = await query({ params: { limit, offset: newOffset } });
+                const oldResults = data?.data.results || []
+                setData({ ...response, data: { ...response.data, results: [...oldResults, ...response.data.results] } })
+                setLimit(limit)
+                setOffset(newOffset)
+            } catch (error) {
+                setError(error)
+            } finally {
+                setLoading(false)
+            }
         }
     }
 

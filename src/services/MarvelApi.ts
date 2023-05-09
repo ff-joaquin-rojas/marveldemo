@@ -40,7 +40,7 @@ const getParameters = (paramsObject?: PaginationParams) => {
 export const getCharacters = async (params?: PaginationParams) => {
     const parameters = getParameters(params)
     const authParams = getHashForAuthentication()
-    const url = `${marvelApiUrl}/v1/public/characters${authParams}`
+    const url = `${marvelApiUrl}/v1/public/characters${authParams}${parameters}`
     const response = await fetch(url)
     const json = await response.json()
     if (json.code === 'RequestThrottled') {

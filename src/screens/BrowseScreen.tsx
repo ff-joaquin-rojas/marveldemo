@@ -1,4 +1,4 @@
-import { View, FlatList, StyleSheet, ListRenderItemInfo } from 'react-native'
+import { View, FlatList, StyleSheet, ListRenderItemInfo, ActivityIndicator } from 'react-native'
 import React, { useMemo } from 'react'
 import CharacterItem from '../components/CharacterItem'
 import { MarvelTheme } from '../style/Palette'
@@ -11,7 +11,7 @@ import Error from '../components/Error'
 const BrowseScreen = () => {
   const theme = useTheme() as MarvelTheme;
   const styles = useMemo(() => createStyles(theme), [theme])
-  const { data: charactersData, error } = useQuery(getCharacters)
+  const { data: charactersData, loading, fetchMore, error } = useQuery(getCharacters)
   const characters = charactersData?.data?.results;
 
   const renderCharacter = ({ item }: ListRenderItemInfo<Character>) => <CharacterItem character={item} />
@@ -20,6 +20,8 @@ const BrowseScreen = () => {
     <Error errorMessage={error.message} />
   </View>
 
+  const renderSpinner = loading ? <ActivityIndicator color={theme.colors.primary} size='large' /> : <></>
+
   return (
     <View style={styles.container}>
       <FlatList
@@ -27,6 +29,8 @@ const BrowseScreen = () => {
         columnWrapperStyle={styles.flatlistRow}
         data={characters}
         renderItem={renderCharacter}
+        onEndReached={fetchMore}
+        ListFooterComponent={renderSpinner}
       />
     </View>
   )
