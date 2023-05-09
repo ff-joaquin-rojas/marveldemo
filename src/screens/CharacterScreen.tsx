@@ -36,6 +36,8 @@ const CharacterScreen = () => {
     <SafeAreaView edges={['bottom']}>
       <ScrollView bounces={false}>
         <FastImage
+          accessibilityRole='image'
+          accessibilityLabel={`Image of ${name}`}
           style={styles.image}
           source={imageSource} />
         <Text style={styles.charTitle}>{name}</Text>

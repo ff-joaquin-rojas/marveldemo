@@ -32,7 +32,11 @@ const CharacterItem = ({ character = {} }: CharacterItemProps) => {
 
 
     return (
-        <TouchableOpacity onPress={navigateToCharacterDetails}>
+        <TouchableOpacity
+            accessibilityRole='button'
+            accessibilityLabel={`${name}. ${comics?.available} comics available`}
+            accessibilityHint='Tap to see more details'
+            onPress={navigateToCharacterDetails}>
             <FastImage
                 onLayout={measureMaxWidth}
                 style={styles.image}
