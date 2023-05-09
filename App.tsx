@@ -1,21 +1,29 @@
 import { NavigationContainer } from '@react-navigation/native';
-import React from 'react';
+import React, { useState } from 'react';
 import {
+  StatusBar,
+  StatusBarStyle,
   useColorScheme,
-  View,
 } from 'react-native';
+import { AvailableThemes, themeContext } from './src/data/themeContext';
 import RootStack from './src/navigation/ScreenStacks';
 import { lightTheme, darkTheme } from './src/style/Palette'
 
 
 function App(): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  const theme = isDarkMode ? darkTheme : lightTheme
+  const [theme, setTheme] = useState(AvailableThemes.System)
+  const isDarkMode = (useColorScheme() === 'dark' && theme === AvailableThemes.System) || theme === AvailableThemes.Dark;
+  const colorBasedTheme = isDarkMode ? darkTheme : lightTheme
+  const statusBarTheme: StatusBarStyle = isDarkMode ? 'light-content' : 'dark-content'
+  const i18nBasedTheme = theme === AvailableThemes.Daltonism ? darkTheme : colorBasedTheme;
 
   return (
-    <NavigationContainer theme={theme} >
-      <RootStack />
-    </NavigationContainer>
+    <themeContext.Provider value={{ theme, setTheme }}>
+      <StatusBar animated barStyle={statusBarTheme} />
+      <NavigationContainer theme={i18nBasedTheme} >
+        <RootStack />
+      </NavigationContainer>
+    </themeContext.Provider>
   );
 }
 

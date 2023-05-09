@@ -1,7 +1,6 @@
-import { FlatList, StyleSheet, ListRenderItemInfo } from 'react-native'
+import { View, FlatList, StyleSheet, ListRenderItemInfo } from 'react-native'
 import React, { useMemo } from 'react'
 import CharacterItem from '../components/CharacterItem'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import { MarvelTheme } from '../style/Palette'
 import { useTheme } from '@react-navigation/native'
 import { getCharacters } from '../services/MarvelApi'
@@ -17,19 +16,19 @@ const BrowseScreen = () => {
 
   const renderCharacter = ({ item }: ListRenderItemInfo<Character>) => <CharacterItem character={item} />
 
-  if (error) return <SafeAreaView style={styles.container}>
+  if (error) return <View style={styles.container}>
     <Error errorMessage={error.message} />
-  </SafeAreaView>
+  </View>
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <FlatList
         numColumns={2}
         columnWrapperStyle={styles.flatlistRow}
         data={characters}
         renderItem={renderCharacter}
       />
-    </SafeAreaView>
+    </View>
   )
 }
 
@@ -38,6 +37,7 @@ const createStyles = (theme: MarvelTheme) =>
   StyleSheet.create({
     container: {
       flex: 1,
+      paddingVertical: 5,
     },
     flatlistRow: {
       justifyContent: 'space-between',

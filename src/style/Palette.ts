@@ -67,8 +67,8 @@ export const darkTheme: MarvelTheme = {
     spacing: DEFAULT_SPACING,
     colors: {
         background: PALETTE.dark10,
-        border: PALETTE.dark10,
-        card: PALETTE.white,
+        border: PALETTE.subtle,
+        card: PALETTE.dark10,
         notification: PALETTE.red,
         primary: PALETTE.white,
         text: PALETTE.white,
@@ -80,7 +80,7 @@ export const darkTheme: MarvelTheme = {
     },
     text: {
         primary: PALETTE.white,
-        secondary: PALETTE.dark00,
+        secondary: PALETTE.white,
         subtle: PALETTE.subtle
     }
 };
