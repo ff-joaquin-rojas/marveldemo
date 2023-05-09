@@ -56,6 +56,7 @@ const createStyles = (theme: MarvelTheme) =>
         mainInformationText: {
             color: theme.text.primary,
             textTransform: 'uppercase',
+            marginBottom: theme.spacing * 5,
         },
         secondaryInformationText: {
             color: theme.text.subtle,
@@ -67,7 +68,7 @@ const createStyles = (theme: MarvelTheme) =>
             paddingHorizontal: theme.spacing * 2,
             backgroundColor: theme.background.card,
             justifyContent: 'space-between',
-            height: IMAGE_HEIGHT / 2,
+            flexGrow: 1,
         },
         triangleDetail: {
             backgroundColor: "transparent",

@@ -9,6 +9,7 @@ import { Character } from '../models/Character'
 import { getImageSource } from '../utils/image'
 import { MarvelTheme } from '../style/Palette'
 import Error from '../components/Error'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 const DEFAULT_NO_DESCRIPTION = 'No description available for this character'
 
@@ -32,21 +33,20 @@ const CharacterScreen = () => {
   const imageSource = getImageSource(thumbnail)
 
   return (
-    <ScrollView contentContainerStyle={styles.container} bounces={false}>
-      <FastImage
-        style={styles.image}
-        source={imageSource} />
-      <Text style={styles.charTitle}>{name}</Text>
-      <Text style={styles.charDescription}>{description || DEFAULT_NO_DESCRIPTION}</Text>
-    </ScrollView>
+    <SafeAreaView edges={['bottom']}>
+      <ScrollView bounces={false}>
+        <FastImage
+          style={styles.image}
+          source={imageSource} />
+        <Text style={styles.charTitle}>{name}</Text>
+        <Text style={styles.charDescription}>{description || DEFAULT_NO_DESCRIPTION}</Text>
+      </ScrollView>
+    </SafeAreaView>
   )
 }
 
 const createStyles = (theme: MarvelTheme) =>
   StyleSheet.create({
-    container: {
-      flex: 1,
-    },
     loadingIndicator: {
       flex: 1,
       alignSelf: 'center',
