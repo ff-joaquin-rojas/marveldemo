@@ -1,0 +1,68 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "1: Theming",
+  "steps": [
+    {
+      "file": "App.tsx",
+      "description": "The goal is to take advantage of `react-navigation` to share styles and theme constants to each screen.",
+      "line": 23
+    },
+    {
+      "file": "App.tsx",
+      "description": "The main idea is to create a custom `Theme` and implement `Theme` interface from `react-navigation`",
+      "line": 16
+    },
+    {
+      "file": "src/style/Palette.ts",
+      "description": "So we can basically extend the basic `Theme` interface to include new color or style structures. This object doesn't have any kind on limitation on what can be stored, but I recommend trying to keep it small as each object implementing this interface will have to contain all the required fields in order to work correctly. ",
+      "line": 22
+    },
+    {
+      "file": "App.tsx",
+      "description": "We can expose the theme and `setTheme` vars through `ContextAPI` so we can update it in any screen. ",
+      "line": 21
+    },
+    {
+      "file": "src/screens/SettingsScreen.tsx",
+      "description": "For example, in settings screen we can update theme globally by calling `setTheme` here.",
+      "line": 25,
+      "selection": {
+        "start": {
+          "line": 14,
+          "character": 35
+        },
+        "end": {
+          "line": 14,
+          "character": 43
+        }
+      }
+    },
+    {
+      "file": "src/screens/BrowseScreen.tsx",
+      "description": "So how would we consume this `Theme` we have just set?",
+      "line": 11
+    },
+    {
+      "file": "src/screens/BrowseScreen.tsx",
+      "description": "We can access the selected theme by using the `useTheme` hook, like this",
+      "line": 12
+    },
+    {
+      "file": "src/screens/BrowseScreen.tsx",
+      "description": "Then we can create our local styles based on this theme.\n\nNote: `useMemo` here is just to not recreate the styles object unless there's a change in the selected theme",
+      "line": 13
+    },
+    {
+      "file": "src/screens/BrowseScreen.tsx",
+      "description": "Remember, you can access any field you added in your theme, since all of your Themes implement the same interface, they should have a value to give back.",
+      "line": 48
+    },
+    {
+      "file": "App.tsx",
+      "description": "You don't need to stick only to Dark/Light themes, you can add any themes you'd like to include in your app. In this case, we added a 3rd theme intended for color blind people.",
+      "line": 18
+    }
+  ],
+  "ref": "main",
+  "isPrimary": true
+}

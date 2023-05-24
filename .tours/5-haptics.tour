@@ -1,0 +1,22 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "5: Haptics",
+  "steps": [
+    {
+      "file": "src/components/CharacterItem.tsx",
+      "description": "This is not the only haptics package available for this.",
+      "line": 4
+    },
+    {
+      "file": "src/components/CharacterItem.tsx",
+      "description": "The goal is to take advantage of all the device capabilities, in this case, device vibration to communicate user interaction results\n\nYou will need to use a real device. Emulators are not good for this.",
+      "line": 29
+    },
+    {
+      "file": "src/components/Error.tsx",
+      "description": "You can even trigger the haptics using react effects, so for example in this case, when an user experiences an error, they can feel a specific vibration communicating the error.",
+      "line": 18
+    }
+  ],
+  "ref": "main"
+}

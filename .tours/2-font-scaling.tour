@@ -1,0 +1,17 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "2: Font Scaling",
+  "steps": [
+    {
+      "file": "src/components/CharacterItem.tsx",
+      "description": "The goal here is to develop all UI interfaces using flex properties so the UI can adapt to contain the new resized text.",
+      "line": 80
+    },
+    {
+      "file": "src/components/CharacterItem.tsx",
+      "description": "By default, all text component have their `allowFontScaling` prop set to true, so they all resize by default.\n\nBe careful! Go to your RN previous and check how good your app is doing with this...",
+      "line": 51
+    }
+  ],
+  "ref": "main"
+}

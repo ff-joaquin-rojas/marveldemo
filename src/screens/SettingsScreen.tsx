@@ -22,7 +22,13 @@ const SettingsScreen = () => {
     }
 
     const renderOption = ({ item }: ListRenderItemInfo<AvailableThemes>) => (
-        <TouchableOpacity accessibilityHint='Tap to set theme' accessibilityRole='radio' accessibilityLabel={`Set ${item} theme`} onPress={() => setTheme(item)} style={[styles.option, selectedTheme === item && styles.optionEnabled]}>
+        <TouchableOpacity
+            accessibilityHint='Tap to set theme'
+            accessibilityRole='radio'
+            accessibilityLabel={`Set ${item} theme`}
+            onPress={() => setTheme(item)}
+            style={[styles.option, selectedTheme === item && styles.optionEnabled]}
+        >
             <Text style={[styles.optionText, selectedTheme === item && styles.optionTextEnabled]}>{item}</Text>
         </TouchableOpacity>
     )

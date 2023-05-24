@@ -1,0 +1,27 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "3: Screen Readers",
+  "steps": [
+    {
+      "file": "src/components/CharacterItem.tsx",
+      "description": "The goal here is to set useful accessibility labels in our components so screen readers can work as efficiently.\nThis is similar to web implementations...",
+      "line": 41
+    },
+    {
+      "file": "src/components/CharacterItem.tsx",
+      "description": "...but how we can test them?\n`Android Accessibility Suite` (Android) or `Accessibility Inspector` (iOS)",
+      "line": 44
+    },
+    {
+      "file": "src/screens/CharacterScreen.tsx",
+      "description": "Remember, images are great candidates to have this a11y fields.",
+      "line": 40
+    },
+    {
+      "file": "src/screens/SettingsScreen.tsx",
+      "description": "By default, all touchable elements have their text content as their accessibility label, so you either disable it if not using it, or even better, set the props correctly....",
+      "line": 28
+    }
+  ],
+  "ref": "main"
+}

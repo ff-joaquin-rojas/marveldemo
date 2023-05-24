@@ -1,0 +1,22 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "4: HitSlop",
+  "steps": [
+    {
+      "file": "src/navigation/HeaderButton.tsx",
+      "description": "The goal is to increase touchable area without affecting the UI.\n\nLook where is it coming from! That's right!",
+      "line": 19
+    },
+    {
+      "file": "src/style/Palette.ts",
+      "description": "How can we see what we are doing?",
+      "line": 25
+    },
+    {
+      "file": "src/style/Palette.ts",
+      "description": "Each theme can have their own `hitSlop` value. In this demo app we sticked to just one for all themes. but feel free to play with it.",
+      "line": 24
+    }
+  ],
+  "ref": "main"
+}
