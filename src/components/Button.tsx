@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, StyleProp, ViewStyle } from 'react-native'
 import React, { useMemo } from 'react'
 import { MarvelTheme } from '../style/Palette'
 import { useTheme } from '@react-navigation/native'
@@ -8,14 +8,15 @@ const TRIANGLE_SIZE = 15
 interface ButtonProps {
   text: string
   onPress?: () => void
+  style?: StyleProp<ViewStyle>
 }
 
-const Button = ({ text, onPress }: ButtonProps) => {
+const Button = ({ text, onPress, style }: ButtonProps) => {
   const theme = useTheme() as MarvelTheme;
   const styles = useMemo(() => createStyles(theme), [theme])
 
   return (
-    <TouchableOpacity onPress={onPress} style={styles.buttonContainer} activeOpacity={theme.defaultOpacity} hitSlop={theme.hitSlopInsets}>
+    <TouchableOpacity onPress={onPress} style={[styles.buttonContainer, style]} activeOpacity={theme.defaultOpacity} hitSlop={theme.hitSlopInsets}>
       <View style={styles.buttonTop} />
       <View style={styles.buttonContent}>
         <Text style={styles.buttonText}>{text}</Text>
@@ -40,19 +41,19 @@ const createStyles = (theme: MarvelTheme) => {
       borderLeftWidth: TRIANGLE_SIZE,
       borderBottomWidth: TRIANGLE_SIZE,
       borderLeftColor: "transparent",
-      borderRightColor: theme.colors.primary,
-      borderBottomColor: theme.colors.primary,
+      borderRightColor: theme.colors.notification,
+      borderBottomColor: theme.colors.notification,
     },
     buttonBottom: {
       backgroundColor: "transparent",
       borderStyle: "solid",
       borderRightWidth: TRIANGLE_SIZE,
       borderTopWidth: TRIANGLE_SIZE,
-      borderTopColor: theme.colors.primary,
+      borderTopColor: theme.colors.notification,
       borderRightColor: "transparent",
     },
     buttonContent: {
-      backgroundColor: theme.colors.primary,
+      backgroundColor: theme.colors.notification,
       paddingHorizontal: theme.spacing,
       alignItems: 'center',
     }

@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet, LayoutChangeEvent, TouchableOpacity } from 'react-native'
 import React, { useMemo, useState } from 'react'
 import { NavigationProp, useNavigation, useTheme } from '@react-navigation/native'
+import RNHaptic from "react-native-haptic-feedback";
 import { MarvelTheme } from '../style/Palette'
 import FastImage from 'react-native-fast-image'
 import { Character } from '../models/Character'
@@ -25,11 +26,15 @@ const CharacterItem = ({ character = {} }: CharacterItemProps) => {
     const measureMaxWidth = (event: LayoutChangeEvent) =>
         setmaxWidth(event.nativeEvent.layout.width)
 
-    const navigateToCharacterDetails = () =>
-        id ?
+    const navigateToCharacterDetails = () => {
+        if (id) {
+            RNHaptic.trigger('notificationSuccess')
             navigation.navigate('CharacterDetails', { id })
-            : console.error('Error: Id not provided');
-
+        } else {
+            RNHaptic.trigger('notificationError')
+            console.error('Error: Id not provided');
+        }
+    }
 
     return (
         <TouchableOpacity

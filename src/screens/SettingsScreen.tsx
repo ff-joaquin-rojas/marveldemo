@@ -1,8 +1,10 @@
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, ScrollView, ListRenderItemInfo } from 'react-native'
-import React, { useContext, useMemo } from 'react'
+import React, { useContext, useMemo, useState } from 'react'
 import { MarvelTheme } from '../style/Palette'
 import { useTheme } from '@react-navigation/native';
 import { AvailableThemes, themeContext } from '../data/themeContext';
+import Button from '../components/Button';
+import Error from '../components/Error';
 
 const themes = Object.keys(AvailableThemes).map(e => e as AvailableThemes)
 
@@ -10,6 +12,14 @@ const SettingsScreen = () => {
     const theme = useTheme() as MarvelTheme;
     const styles = useMemo(() => createStyles(theme), [theme])
     const { theme: selectedTheme, setTheme } = useContext(themeContext);
+    const [showError, setShowError] = useState(false);
+
+    const showErrorForAMoment = () => {
+        setShowError(true)
+        setTimeout(() => {
+            setShowError(false)
+        }, 10000);
+    }
 
     const renderOption = ({ item }: ListRenderItemInfo<AvailableThemes>) => (
         <TouchableOpacity accessibilityHint='Tap to set theme' accessibilityRole='radio' accessibilityLabel={`Set ${item} theme`} onPress={() => setTheme(item)} style={[styles.option, selectedTheme === item && styles.optionEnabled]}>
@@ -21,6 +31,8 @@ const SettingsScreen = () => {
         <ScrollView bounces={false} style={styles.container}>
             <Text style={styles.title}>Theme</Text>
             <FlatList bounces={false} ItemSeparatorComponent={() => <View style={styles.optionSeparator} />} style={styles.optionsContainer} horizontal data={themes} renderItem={renderOption} />
+            <Text style={[styles.title, styles.space]}>Dev things</Text>
+            {showError ? <Error errorMessage='test error message' /> : <Button style={styles.button} text='Trigger error screen for 10 seconds' onPress={showErrorForAMoment} />}
         </ScrollView>
     )
 }
@@ -36,6 +48,12 @@ const createStyles = (theme: MarvelTheme) =>
             color: theme.text.secondary,
             fontWeight: 'bold',
             marginBottom: theme.spacing,
+        },
+        space: {
+            marginTop: theme.spacing * 2,
+        },
+        button: {
+            alignSelf: 'center',
         },
         option: {
             borderWidth: 1.5,
