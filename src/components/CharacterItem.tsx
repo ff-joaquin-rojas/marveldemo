@@ -28,7 +28,7 @@ const CharacterItem = ({ character = {} }: CharacterItemProps) => {
     const navigateToCharacterDetails = () =>
         id ?
             navigation.navigate('CharacterDetails', { id })
-            : console.log('Error: Id not provided');
+            : console.error('Error: Id not provided');
 
 
     return (

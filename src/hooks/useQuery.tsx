@@ -26,9 +26,7 @@ const useQuery = <F extends (params: any) => any>(query: F, params?: Parameter<F
     const runApiCall = async () => {
         setLoading(true)
         try {
-            console.log('basic params', params);
             const response: Awaited<ReturnType<F>> = await query(params);
-            console.log('response', response);
             setData(response)
         } catch (error) {
             setError(error)
