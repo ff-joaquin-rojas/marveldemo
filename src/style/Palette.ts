@@ -8,6 +8,7 @@ export const PALETTE = {
     red: '#ec1d24',
     white: '#ffffff',
     subtle: '#BBBBBB',
+    blue: '#4D4DFF'
 }
 
 export const DEFAULT_SPACING = 8;
@@ -81,6 +82,32 @@ export const darkTheme: MarvelTheme = {
     text: {
         primary: PALETTE.white,
         secondary: PALETTE.white,
+        subtle: PALETTE.subtle
+    }
+};
+
+
+export const colorBlindTheme: MarvelTheme = {
+    defaultOpacity: DEFAULT_ACTIVE_OPACITY_BUTTON,
+    hitSlop: DEFAULT_HITSLOP,
+    hitSlopInsets: { bottom: DEFAULT_HITSLOP, left: DEFAULT_HITSLOP, right: DEFAULT_HITSLOP, top: DEFAULT_HITSLOP },
+    spacing: DEFAULT_SPACING,
+    colors: {
+        background: PALETTE.white,
+        border: PALETTE.dark10,
+        card: PALETTE.white,
+        notification: PALETTE.blue,
+        primary: PALETTE.blue,
+        text: PALETTE.dark20,
+    },
+    dark: false,
+    background: {
+        primary: PALETTE.blue,
+        card: PALETTE.dark20,
+    },
+    text: {
+        primary: PALETTE.white,
+        secondary: PALETTE.dark00,
         subtle: PALETTE.subtle
     }
 };

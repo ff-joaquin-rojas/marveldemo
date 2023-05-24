@@ -4,7 +4,7 @@ export enum AvailableThemes {
     System = 'System',
     Light = 'Light',
     Dark = 'Dark',
-    Daltonism = 'Daltonism'
+    Colorblind = 'Colorblind'
 }
 
 export const themeContext = createContext({

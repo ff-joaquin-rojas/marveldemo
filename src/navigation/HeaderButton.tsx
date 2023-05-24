@@ -1,6 +1,6 @@
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import { Text, TouchableOpacity, StyleSheet } from 'react-native'
 import React, { useMemo } from 'react'
-import { NavigationProp, Route, RouteProp, useNavigation, useTheme } from '@react-navigation/native';
+import { NavigationProp, useNavigation, useTheme } from '@react-navigation/native';
 import { MarvelTheme } from '../style/Palette';
 import { StackParamList } from './ScreenStacks';
 
@@ -16,7 +16,7 @@ const HeaderButton = ({ toRoute }: HeaderButtonProps) => {
     const navigateToRoute = () => navigation.navigate(toRoute as any)
 
     return (
-        <TouchableOpacity onPress={navigateToRoute} >
+        <TouchableOpacity hitSlop={theme.hitSlopInsets} onPress={navigateToRoute} >
             <Text style={styles.text}>{toRoute}</Text>
         </TouchableOpacity>
     )
@@ -24,9 +24,6 @@ const HeaderButton = ({ toRoute }: HeaderButtonProps) => {
 
 const createStyles = (theme: MarvelTheme) =>
     StyleSheet.create({
-        container: {
-
-        },
         text: {
             color: theme.colors.primary
         }
